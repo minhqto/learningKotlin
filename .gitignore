@@ -1,0 +1,13 @@
+# Android Studio
+.idea/
+.gradle
+/*/local.properties
+/*/out
+**/build
+/regular/release
+*.iml
+*.iws
+*.ipr
+*~
+*.swp
+captures
