@@ -45,7 +45,6 @@ class MainActivity : AppCompatActivity() {
             4 -> diceImageTwo.setImageResource(R.drawable.dice_4)
             5 -> diceImageTwo.setImageResource(R.drawable.dice_5)
             6 -> diceImageTwo.setImageResource(R.drawable.dice_6)
-            7 -> diceImageTwo.setImageResource(R.drawable.dice_1)
         }
 
     }
