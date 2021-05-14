@@ -3,15 +3,22 @@ package com.example.tipcalculator
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.*
+import com.example.tipcalculator.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+
+    lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-//        val costOfService: EditText = findViewById(R.id.cost_of_service)
-//        println(costOfService.toString())
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         println("test!")
+
+        //adding these in for a rebase test
+        val costOfService: EditText = findViewById(R.id.cost_of_service)
+        println(costOfService.toString())
+
     }
 }
