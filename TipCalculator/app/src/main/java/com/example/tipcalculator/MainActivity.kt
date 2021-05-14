@@ -20,5 +20,7 @@ class MainActivity : AppCompatActivity() {
         val costOfService: EditText = findViewById(R.id.cost_of_service)
         println(costOfService.toString())
 
+        println("More work!")
+
     }
 }
