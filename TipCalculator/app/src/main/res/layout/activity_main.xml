@@ -89,6 +89,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/calculate_button"
         app:layout_constraintVertical_bias="0.0"
-        tools:text="Tip amount" />
+        tools:text="Tip amount: $10" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
