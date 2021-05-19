@@ -2,6 +2,7 @@ package com.example.tipcalculator
 
 import android.app.Application
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.tipcalculator.databinding.ActivityMainBinding
@@ -11,7 +12,7 @@ import java.text.NumberFormat
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-
+    private val TAG: String = "MainActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         binding.calculateButton.setOnClickListener {
            this.calculateTip()
         }
-
+        Log.d(TAG, "onCreate: Called")
     }
 
     private fun calculateTip() {
