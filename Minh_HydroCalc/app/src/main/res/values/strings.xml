@@ -1,12 +1,16 @@
 <resources>
     <string name="app_name">Minh\'s Hydro Calculator</string>
-    <string name="onPeak">On-Peak Usage</string>
-    <string name="offPeak">Off-Peak Usage</string>
-    <string name="midPeak">Mid-Peak Usage</string>
-    <string name="calculateHydro">Calculate Hydro</string>
-    <string name="hydroConCharges">Hydro Consumption Charges</string>
-    <string name="totalRegCharges">Total Regulatory Charges</string>
+    <string name="on_peak">On-Peak Usage</string>
+    <string name="off_peak">Off-Peak Usage</string>
+    <string name="mid_peak">Mid-Peak Usage</string>
+    <string name="on_peak_static">On-Peak Charges</string>
+    <string name="off_peak_static">Off-Peak Charges</string>
+    <string name="mid_peak_static">Mid-Peak Charges</string>
+    <string name="calculate_hydro">Calculate Hydro</string>
+    <string name="hydro_con_charges">Hydro Consumption Charges</string>
+    <string name="total_reg_charges">Total Regulatory Charges</string>
     <string name="hst">HST</string>
-    <string name="provRebate">Provincial Rebate</string>
+    <string name="prov_rebate">Provincial Rebate</string>
     <string name="total">Total Bill Amount to Pay</string>
+    <string name="zero_dollars">$0.00</string>
 </resources>

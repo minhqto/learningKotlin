@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/onPeakText"
+        android:id="@+id/on_peak_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -15,51 +15,53 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:text="@string/onPeak"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@id/onPeak"
+        android:text="@string/on_peak"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@id/on_peak"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/onPeak"
+        android:id="@+id/on_peak"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:inputType="numberDecimal"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.1"
-        app:layout_constraintStart_toEndOf="@id/onPeakText"
+        app:layout_constraintStart_toEndOf="@id/on_peak_text"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="on peak usage amount" />
 
     <TextView
-        android:id="@+id/offPeakText"
+        android:id="@+id/off_peak_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:text="@string/offPeak"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@id/offPeak"
+        android:text="@string/off_peak"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@id/off_peak"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/onPeakText" />
+        app:layout_constraintTop_toBottomOf="@id/on_peak_text" />
 
     <EditText
-        android:id="@+id/offPeak"
+        android:id="@+id/off_peak"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:inputType="numberDecimal"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.1"
-        app:layout_constraintStart_toEndOf="@id/offPeakText"
-        app:layout_constraintTop_toBottomOf="@id/onPeak"
+        app:layout_constraintStart_toEndOf="@id/off_peak_text"
+        app:layout_constraintTop_toBottomOf="@id/on_peak"
         tools:text="off peak usage amount" />
 
     <TextView
@@ -68,41 +70,135 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:text="@string/midPeak"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@id/midPeak"
+        android:text="@string/mid_peak"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@id/mid_peak"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/offPeakText" />
+        app:layout_constraintTop_toBottomOf="@id/off_peak_text" />
 
     <EditText
-        android:id="@+id/midPeak"
+        android:id="@+id/mid_peak"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:inputType="numberDecimal"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintStart_toEndOf="@id/midPeakText"
-        app:layout_constraintTop_toBottomOf="@id/offPeak"
+        app:layout_constraintTop_toBottomOf="@id/off_peak"
         tools:text="mid peak usage amount" />
 
     <Button
+        android:id="@+id/calc_hydro_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginBottom="537dp"
-        android:text="@string/calculateHydro"
+        android:text="@string/calculate_hydro"
+        android:textColor="@color/black"
+        android:backgroundTint="@color/grey"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/midPeak" />
+        app:layout_constraintTop_toBottomOf="@+id/mid_peak"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/hydro_consumption_static_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="140dp"
+        android:padding="8dp"
+        android:text="@string/hydro_con_charges"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:background="@color/purple_700"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/calc_hydro_button" />
+
+    <TextView
+        android:id="@+id/hydro_consumption_charges"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="140dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@color/purple_700"
+        android:padding="8dp"
+        android:text="@string/zero_dollars"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toEndOf="@id/hydro_consumption_static_text"
+        app:layout_constraintTop_toBottomOf="@id/calc_hydro_button" />
+
+    <TextView
+        android:id="@+id/on_peak_charge_static"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:text="@string/on_peak_static"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/hydro_consumption_static_text" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:textSize="16sp"
+        android:textColor="@color/purple_700"
+        android:text="@string/zero_dollars"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/on_peak_charge_static"
+        app:layout_constraintTop_toBottomOf="@id/hydro_consumption_static_text" />
+
+    <TextView
+        android:id="@+id/off_peak_charge_static"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:text="@string/off_peak_static"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/on_peak_charge_static" />
+
+    <TextView
+        android:id="@+id/mid_peak_charge_static"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:text="@string/mid_peak_static"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/off_peak_charge_static" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
