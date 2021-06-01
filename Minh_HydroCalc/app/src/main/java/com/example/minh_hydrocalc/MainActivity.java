@@ -1,10 +1,13 @@
 package com.example.minh_hydrocalc;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,9 +15,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
-    private double hst = 0.13;
-    private double provincial_rebate = 0.08;
-    private ArrayList<Double> usages = new ArrayList<>(Arrays.asList(0.132, 0.065, 0.094));
+    private final double hst = 0.13;
+    private final double provincial_rebate = 0.08;
+    private final ArrayList<Double> usages = new ArrayList<>(Arrays.asList(0.132, 0.065, 0.094));
+    ArrayList<TextView> allCharges = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,24 +28,33 @@ public class MainActivity extends AppCompatActivity {
         calcButton.setOnClickListener(btnClick);
     }
 
-        private View.OnClickListener btnClick = new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
+    private void getChargeAmountViews(){
+        this.allCharges.add(findViewById(R.id.on_peak_charges_amount));
+        this.allCharges.add(findViewById(R.id.off_peak_charges_amount));
+        this.allCharges.add(findViewById(R.id.mid_peak_charges_amount));
+    }
 
-                ArrayList<String> allPeaksAsStrings = new ArrayList<>();
-                ArrayList<Double> allPeaksAsDouble = new ArrayList<>();
+    private View.OnClickListener btnClick = new View.OnClickListener(){
+        @Override
+        public void onClick(View v) {
+            ArrayList<String> allPeaksAsStrings;
+            ArrayList<Double> allPeaksAsDouble;
+            Double hydroConsumpCharges = 0.0;
 
-                allPeaksAsStrings = getPeaksAsStrings();
-                allPeaksAsDouble = convertStringsToDouble(allPeaksAsStrings);
-
-
-                String TAG  = "TAG";
-                for(int i = 0; i < allPeaksAsDouble.size(); i++){
-                    Log.d(TAG, "onClick: " + String.format("%.2f", calculateCharges(allPeaksAsDouble.get(i), usages.get(i))));
-                }
-
+            allPeaksAsStrings = getPeaksAsStrings();
+            allPeaksAsDouble = convertStringsToDouble(allPeaksAsStrings);
+            getChargeAmountViews();
+            for(int i = 0; i < allPeaksAsDouble.size(); i++){
+                Double amount = allPeaksAsDouble.get(i) * usages.get(i);
+                hydroConsumpCharges += amount;
+                allCharges.get(i).setText(String.format("$%.2f", amount));
             }
-        };
+
+            TextView hydroConsumpChargesView = findViewById(R.id.hydro_consumption_charges);
+            hydroConsumpChargesView.setText(String.format("$%.2f", hydroConsumpCharges));
+            hideKeyboard();
+        }
+    };
 
     private ArrayList<String> getPeaksAsStrings(){
         ArrayList<String> peaks = new ArrayList<>();
@@ -74,5 +87,13 @@ public class MainActivity extends AppCompatActivity {
     }
     private double calculateCharges(double amountUsed, double usageType){
         return amountUsed * usageType;
+    }
+
+    private void hideKeyboard(){
+        InputMethodManager inputManager = (InputMethodManager)
+                getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                InputMethodManager.HIDE_NOT_ALWAYS);
     }
 }
