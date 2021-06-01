@@ -160,6 +160,7 @@
         app:layout_constraintTop_toBottomOf="@id/hydro_consumption_static_text" />
 
     <TextView
+        android:id="@+id/on_peak_charges_amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -187,6 +188,20 @@
         app:layout_constraintTop_toBottomOf="@id/on_peak_charge_static" />
 
     <TextView
+        android:id="@+id/off_peak_charges_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:textSize="16sp"
+        android:textColor="@color/purple_700"
+        android:text="@string/zero_dollars"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/off_peak_charge_static"
+        app:layout_constraintTop_toBottomOf="@id/on_peak_charges_amount" />
+
+    <TextView
         android:id="@+id/mid_peak_charge_static"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -200,5 +215,146 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/off_peak_charge_static" />
 
+    <TextView
+        android:id="@+id/mid_peak_charges_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:textSize="16sp"
+        android:textColor="@color/purple_700"
+        android:text="@string/zero_dollars"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/mid_peak_charge_static"
+        app:layout_constraintTop_toBottomOf="@id/off_peak_charges_amount" />
+
+    <TextView
+        android:id="@+id/total_reg_charges"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:padding="8dp"
+        android:text="@string/total_reg_charges"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:background="@color/purple_700"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/mid_peak_charge_static" />
+
+    <TextView
+        android:id="@+id/total_reg_charges_amount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@color/purple_700"
+        android:padding="8dp"
+        android:text="@string/zero_dollars"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toEndOf="@id/total_reg_charges"
+        app:layout_constraintTop_toBottomOf="@id/mid_peak_charges_amount" />
+
+    <TextView
+        android:id="@+id/hst_static"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:text="@string/hst"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/total_reg_charges" />
+
+    <TextView
+        android:id="@+id/hst_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:textSize="16sp"
+        android:textColor="@color/purple_700"
+        android:text="@string/zero_dollars"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/on_peak_charge_static"
+        app:layout_constraintTop_toBottomOf="@id/total_reg_charges" />
+
+    <TextView
+        android:id="@+id/prov_rebate_static"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:text="@string/prov_rebate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/hst_static" />
+
+    <TextView
+        android:id="@+id/prov_rebate_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:textSize="16sp"
+        android:textColor="@color/purple_700"
+        android:text="@string/zero_dollars"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/prov_rebate_static"
+        app:layout_constraintTop_toBottomOf="@id/hst_amount" />
+
+    <TextView
+        android:id="@+id/total_amount_static"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:padding="8dp"
+        android:text="@string/total"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:background="@color/purple_700"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/prov_rebate_static" />
+
+    <TextView
+        android:id="@+id/total_amount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@color/purple_700"
+        android:padding="8dp"
+        android:text="@string/zero_dollars"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toEndOf="@id/total_amount_static"
+        app:layout_constraintTop_toBottomOf="@id/prov_rebate_amount" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
