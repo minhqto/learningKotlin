@@ -19,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
     private final double provincial_rebate = 0.08;
     private final ArrayList<Double> usages = new ArrayList<>(Arrays.asList(0.132, 0.065, 0.094));
     ArrayList<TextView> allCharges = new ArrayList<>();
+    private Double hydroConsumpCharges = 0.0;
+    private Double totalRegCharges = 0.0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,33 +30,32 @@ public class MainActivity extends AppCompatActivity {
         calcButton.setOnClickListener(btnClick);
     }
 
+    private View.OnClickListener btnClick = v -> {
+        ArrayList<String> allPeaksAsStrings;
+        ArrayList<Double> allPeaksAsDouble;
+        TextView hydroConsumpChargesView = findViewById(R.id.hydro_consumption_charges);
+        TextView totalRegChargesView = findViewById(R.id.total_reg_charges_amount);
+        TextView totalAmountToPay = findViewById(R.id.total_amount);
+
+        allPeaksAsStrings = getPeaksAsStrings();
+        allPeaksAsDouble = convertStringsToDouble(allPeaksAsStrings);
+        getChargeAmountViews();
+
+        hydroConsumpCharges = calculateHydroConsumptionCharges(allPeaksAsDouble);
+        totalRegCharges = calculateRegulatoryCharges(hydroConsumpCharges);
+
+        hydroConsumpChargesView.setText(String.format("$%.2f", hydroConsumpCharges));
+        totalRegChargesView.setText(String.format("$%.2f", totalRegCharges));
+        totalAmountToPay.setText(String.format("$%.2f", hydroConsumpCharges + totalRegCharges));
+
+        hideKeyboard();
+    };
+
     private void getChargeAmountViews(){
         this.allCharges.add(findViewById(R.id.on_peak_charges_amount));
         this.allCharges.add(findViewById(R.id.off_peak_charges_amount));
         this.allCharges.add(findViewById(R.id.mid_peak_charges_amount));
     }
-
-    private View.OnClickListener btnClick = new View.OnClickListener(){
-        @Override
-        public void onClick(View v) {
-            ArrayList<String> allPeaksAsStrings;
-            ArrayList<Double> allPeaksAsDouble;
-            Double hydroConsumpCharges = 0.0;
-
-            allPeaksAsStrings = getPeaksAsStrings();
-            allPeaksAsDouble = convertStringsToDouble(allPeaksAsStrings);
-            getChargeAmountViews();
-            for(int i = 0; i < allPeaksAsDouble.size(); i++){
-                Double amount = allPeaksAsDouble.get(i) * usages.get(i);
-                hydroConsumpCharges += amount;
-                allCharges.get(i).setText(String.format("$%.2f", amount));
-            }
-
-            TextView hydroConsumpChargesView = findViewById(R.id.hydro_consumption_charges);
-            hydroConsumpChargesView.setText(String.format("$%.2f", hydroConsumpCharges));
-            hideKeyboard();
-        }
-    };
 
     private ArrayList<String> getPeaksAsStrings(){
         ArrayList<String> peaks = new ArrayList<>();
@@ -74,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private ArrayList<Double>convertStringsToDouble(ArrayList<String> strings){
-        ArrayList<Double> peaksAsDoubles = new ArrayList<Double>();
+        ArrayList<Double> peaksAsDoubles = new ArrayList<>();
         for(int i = 0; i < strings.size(); i++){
             try{
                 peaksAsDoubles.add(Double.parseDouble(strings.get(i)));
@@ -85,10 +86,33 @@ public class MainActivity extends AppCompatActivity {
 
         return peaksAsDoubles;
     }
-    private double calculateCharges(double amountUsed, double usageType){
-        return amountUsed * usageType;
+
+    private Double calculateHydroConsumptionCharges(ArrayList<Double> peakUsages){
+        Double hydroConsumpCharges = 0.0;
+
+        for(int i = 0; i < peakUsages.size(); i++){
+            Double amount = peakUsages.get(i) * usages.get(i);
+            hydroConsumpCharges += amount;
+            allCharges.get(i).setText(String.format("$%.2f", amount));
+        }
+
+        return hydroConsumpCharges;
     }
 
+    private Double calculateRegulatoryCharges(Double hydroConsumptionCharges){
+        TextView hstAmountView = findViewById(R.id.hst_amount);
+        TextView provRebateAmount = findViewById(R.id.prov_rebate_amount);
+
+        double hstAmount = hydroConsumptionCharges * hst;
+        double rebateAmount = hydroConsumptionCharges * provincial_rebate;
+
+        hstAmountView.setText(String.format("$%.2f", hstAmount));
+        provRebateAmount.setText(String.format("-$%.2f", rebateAmount));
+
+        return hstAmount - rebateAmount;
+    }
+
+//    Credit: https://stackoverflow.com/questions/3400028/close-virtual-keyboard-on-button-press
     private void hideKeyboard(){
         InputMethodManager inputManager = (InputMethodManager)
                 getSystemService(Context.INPUT_METHOD_SERVICE);
