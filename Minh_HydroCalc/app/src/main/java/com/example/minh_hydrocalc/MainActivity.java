@@ -17,8 +17,9 @@ import java.util.Arrays;
 public class MainActivity extends AppCompatActivity {
     private final double hst = 0.13;
     private final double provincial_rebate = 0.08;
-    private final ArrayList<Double> usages = new ArrayList<>(Arrays.asList(0.132, 0.065, 0.094));
+    private final ArrayList<Double> rates = new ArrayList<>(Arrays.asList(0.132, 0.065, 0.094));
     ArrayList<TextView> allCharges = new ArrayList<>();
+    ArrayList<String> allPeaksAsStrings = new ArrayList<>();
     private Double hydroConsumpCharges = 0.0;
     private Double totalRegCharges = 0.0;
 
@@ -31,23 +32,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private View.OnClickListener btnClick = v -> {
-        ArrayList<String> allPeaksAsStrings;
         ArrayList<Double> allPeaksAsDouble;
         TextView hydroConsumpChargesView = findViewById(R.id.hydro_consumption_charges);
         TextView totalRegChargesView = findViewById(R.id.total_reg_charges_amount);
         TextView totalAmountToPay = findViewById(R.id.total_amount);
 
-        allPeaksAsStrings = getPeaksAsStrings();
-        allPeaksAsDouble = convertStringsToDouble(allPeaksAsStrings);
-        getChargeAmountViews();
-
-        hydroConsumpCharges = calculateHydroConsumptionCharges(allPeaksAsDouble);
-        totalRegCharges = calculateRegulatoryCharges(hydroConsumpCharges);
-
-        hydroConsumpChargesView.setText(String.format("$%.2f", hydroConsumpCharges));
-        totalRegChargesView.setText(String.format("$%.2f", totalRegCharges));
-        totalAmountToPay.setText(String.format("$%.2f", hydroConsumpCharges + totalRegCharges));
-
+        if(getPeaksAsStrings()){
+            allPeaksAsDouble = convertStringsToDouble(allPeaksAsStrings);
+            getChargeAmountViews();
+            hydroConsumpCharges = calculateHydroConsumptionCharges(allPeaksAsDouble);
+            totalRegCharges = calculateRegulatoryCharges(hydroConsumpCharges);
+            hydroConsumpChargesView.setText(String.format("$%.2f", hydroConsumpCharges));
+            totalRegChargesView.setText(String.format("$%.2f", totalRegCharges));
+            totalAmountToPay.setText(String.format("$%.2f", hydroConsumpCharges + totalRegCharges));
+        }
         hideKeyboard();
     };
 
@@ -57,21 +55,26 @@ public class MainActivity extends AppCompatActivity {
         this.allCharges.add(findViewById(R.id.mid_peak_charges_amount));
     }
 
-    private ArrayList<String> getPeaksAsStrings(){
-        ArrayList<String> peaks = new ArrayList<>();
-        EditText onPeak = findViewById(R.id.on_peak);
-        EditText offPeak = findViewById(R.id.off_peak);
-        EditText midPeak = findViewById(R.id.mid_peak);
+    private Boolean getPeaksAsStrings(){
+        ArrayList<EditText> peakEditTexts = new ArrayList<>();
+        Boolean validData = true;
 
-        String onPeakString = onPeak.getText().toString();
-        String offPeakString = offPeak.getText().toString();
-        String midPeakString = midPeak.getText().toString();
-
-        peaks.add(onPeakString);
-        peaks.add(offPeakString);
-        peaks.add(midPeakString);
-
-        return peaks;
+        peakEditTexts.add(findViewById(R.id.on_peak));
+        peakEditTexts.add(findViewById(R.id.off_peak));
+        peakEditTexts.add(findViewById(R.id.mid_peak));
+        if(allPeaksAsStrings.size() > 0){
+            allPeaksAsStrings.clear();
+        }
+        for(int i = 0; i < peakEditTexts.size(); i++){
+            if(peakEditTexts.get(i).getText().toString().isEmpty()){
+                peakEditTexts.get(i).setError("Peak usage cannot be empty");
+                validData = false;
+            }else{
+                allPeaksAsStrings.add(peakEditTexts.get(i).getText().toString());
+                validData = true;
+            }
+        }
+        return validData;
     }
 
     private ArrayList<Double>convertStringsToDouble(ArrayList<String> strings){
@@ -91,11 +94,10 @@ public class MainActivity extends AppCompatActivity {
         Double hydroConsumpCharges = 0.0;
 
         for(int i = 0; i < peakUsages.size(); i++){
-            Double amount = peakUsages.get(i) * usages.get(i);
+            Double amount = peakUsages.get(i) * rates.get(i);
             hydroConsumpCharges += amount;
             allCharges.get(i).setText(String.format("$%.2f", amount));
         }
-
         return hydroConsumpCharges;
     }
 

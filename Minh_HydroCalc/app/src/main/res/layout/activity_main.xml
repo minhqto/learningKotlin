@@ -33,6 +33,7 @@
         app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintStart_toEndOf="@id/on_peak_text"
         app:layout_constraintTop_toTopOf="parent"
+        android:hint="@string/usageHint"
         tools:text="on peak usage amount" />
 
     <TextView
@@ -62,6 +63,7 @@
         app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintStart_toEndOf="@id/off_peak_text"
         app:layout_constraintTop_toBottomOf="@id/on_peak"
+        android:hint="@string/usageHint"
         tools:text="off peak usage amount" />
 
     <TextView
@@ -90,6 +92,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/midPeakText"
         app:layout_constraintTop_toBottomOf="@id/off_peak"
+        android:hint="@string/usageHint"
         tools:text="mid peak usage amount" />
 
     <Button
