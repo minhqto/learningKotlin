@@ -1,0 +1,2 @@
+rootProject.name = "Minh_MyOrder"
+include ':app'

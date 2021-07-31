@@ -10,11 +10,11 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.minh_myorder.databinding.ActivityMainBinding;
-import com.example.minh_myorder.models.Coffee;
-
-import java.util.ArrayList;
+import com.example.minh_myorder.entities.Coffee;
+import com.example.minh_myorder.viewmodels.CoffeeViewModel;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -23,13 +23,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private String coffeeStyle = "";
     private String coffeeSize;
     private String quantity;
-    ArrayList<Coffee> coffeeOrders = new ArrayList<>();
+    private CoffeeViewModel coffeeVM;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        this.coffeeVM = new ViewModelProvider(this).get(CoffeeViewModel.class);
         this.binding.rgCoffeeStyle.setVisibility(View.GONE);
         this.binding.tvCoffeeStylePrompt.setVisibility(View.GONE);
         this.binding.btnSubmit.setOnClickListener(this);
@@ -90,8 +91,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(v != null){
             switch(v.getId()){
                 case(R.id.btn_submit): {
-                    this.coffeeOrders.add(new Coffee(this.coffeeType, this.coffeeStyle, this.coffeeSize, this.quantity));
-
+//                    this.coffeeOrders.add(new Coffee(this.coffeeType, this.coffeeStyle, this.coffeeSize, this.quantity));
+                    Coffee newCoffee = new Coffee(this.coffeeType, this.coffeeStyle, this.coffeeSize, Integer.parseInt(this.quantity));
+                    this.coffeeVM.addCoffee(newCoffee);
                     AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
                     alertBuilder.setTitle("Coffee added to order! Would you like to order more?");
                     alertBuilder.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
@@ -116,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void showOrders(){
         Intent coffeeOrdersIntent = new Intent(this, CoffeeOrdersActivity.class);
-        coffeeOrdersIntent.putParcelableArrayListExtra("coffees", coffeeOrders);
+//        coffeeOrdersIntent.putParcelableArrayListExtra("coffees", coffeeOrders);
         startActivity(coffeeOrdersIntent);
     }
 

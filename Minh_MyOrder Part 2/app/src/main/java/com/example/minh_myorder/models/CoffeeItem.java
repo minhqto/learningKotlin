@@ -3,38 +3,49 @@ package com.example.minh_myorder.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Coffee implements Parcelable {
+public class CoffeeItem implements Parcelable {
 
+    private long coffeeId;
     private String type;
     private String style;
     private String size;
     private String quantity;
 
-    public Coffee(String type, String style, String size, String quantity) {
+    public CoffeeItem(long coffeeId ,String type, String style, String size, String quantity) {
+        this.coffeeId = coffeeId;
         this.type = type;
         this.style = style;
         this.size = size;
         this.quantity = quantity;
     }
 
-    protected Coffee(Parcel in) {
+    protected CoffeeItem(Parcel in) {
+        coffeeId = in.readLong();
         type = in.readString();
         style = in.readString();
         size = in.readString();
         quantity = in.readString();
     }
 
-    public static final Creator<Coffee> CREATOR = new Creator<Coffee>() {
+    public static final Creator<CoffeeItem> CREATOR = new Creator<CoffeeItem>() {
         @Override
-        public Coffee createFromParcel(Parcel in) {
-            return new Coffee(in);
+        public CoffeeItem createFromParcel(Parcel in) {
+            return new CoffeeItem(in);
         }
 
         @Override
-        public Coffee[] newArray(int size) {
-            return new Coffee[size];
+        public CoffeeItem[] newArray(int size) {
+            return new CoffeeItem[size];
         }
     };
+
+    public long getCoffeeId() {
+        return coffeeId;
+    }
+
+    public void setCoffeeId(long coffeeId) {
+        this.coffeeId = coffeeId;
+    }
 
     public String getType() {
         return type;
@@ -76,6 +87,7 @@ public class Coffee implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(coffeeId);
         dest.writeString(type);
         dest.writeString(style);
         dest.writeString(size);
